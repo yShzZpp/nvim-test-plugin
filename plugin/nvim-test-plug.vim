@@ -14,7 +14,7 @@ local test_status_record = {}
 vim.notify = require("notify")
 
 function test_status_notify(city,msg, level)
-  local notify_opts = { title = city, timeout = 3000, hide_from_history = false, on_close = reset_status_record }
+  local notify_opts = { title ="天气", timeout = 3000, hide_from_history = false, on_close = reset_status_record }
   -- if test_status_record is not {} then add it to notify_opts to key called "replace"
   if test_status_record ~= {} then
     notify_opts["replace"] = test_status_record.id

@@ -33,8 +33,9 @@ json=`cat ./weather.html`
 
 get_json_value $json "city"
 get_json_value $json "temp"
+
 get_json_value $json "WD"
 get_json_value $json "WS"
 echo $data > "weather-data"
 rm ./weather.html
-# echo $data
+echo $data
