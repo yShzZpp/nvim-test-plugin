@@ -49,6 +49,7 @@ fu! Ysh()
 endfu
 
 
+" while、函数参数 运用
 fu! Callback(count) dict
  let thecounter=a:count
  while thecounter>0
@@ -59,4 +60,11 @@ endfu
 let context={"name": "dictfun"}
 let Func =function('Callback', [3], context)
 
+" 电脑剪切板
+fu! UserClipboard() 
+	execute ":normal \"*p"
+endfu
+
 command! -nargs=0  Ysh call Ysh() 
+command! -nargs=0  YP call UserClipboard() 
+
