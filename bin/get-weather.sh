@@ -25,7 +25,7 @@ weatherData=/home/zzpp/mygit/nvim-test-plug/bin/weather-data
  
 wget $weatherDateRoot -O $weatherDataFile > /dev/null 2>&1
 
-json=`cat ./weather.html`
+json=`cat $weatherDataFile`
 
 # $(get_json_value $json "city")
 # $(get_json_value $json "temp")
