@@ -38,8 +38,8 @@ endfu
 
 " 全局函数
 fu! Ysh()
-	echom "Helloworld 2 " . g:ysh_test_value
-	call s:init()
+	" echom "Helloworld 2 " . g:ysh_test_value
+	" call s:init()
 	" 清空屏幕
 	silent !clear
 	silent execute "! ~/mygit/nvim-test-plug/bin/get-weather.sh" 

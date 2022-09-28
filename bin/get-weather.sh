@@ -20,7 +20,8 @@ function get_json_value()
 }
 
 weatherDateRoot=http://www.weather.com.cn/data/sk/101280601.html
-weatherDataFile=weather.html
+weatherDataFile=/home/zzpp/mygit/nvim-test-plug/bin/weather.html
+weatherData=/home/zzpp/mygit/nvim-test-plug/bin/weather-data
  
 wget $weatherDateRoot -O $weatherDataFile > /dev/null 2>&1
 
@@ -36,6 +37,6 @@ get_json_value $json "temp"
 
 get_json_value $json "WD"
 get_json_value $json "WS"
-echo $data > "weather-data"
-rm ./weather.html
+echo $data > $weatherData
+rm $weatherDataFile
 echo $data
