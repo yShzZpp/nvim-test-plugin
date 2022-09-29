@@ -1,14 +1,12 @@
+# learnvimscriptthehardway
 
-# vim-plug
-
-&npsp;
-&npsp;
+&nbsp;
+&nbsp;
 
 # 1 变量定义
 
-===========
 
-&npsp;
+&nbsp;
 
 |序号|变量|描述|
 |-|-|-|
@@ -24,12 +22,12 @@
 |11|@varname|一个Vim注册器|
 |12|$varname|一个环境变量|
 
-&npsp;
+&nbsp;
 
 
 **寄存器**
 
-&npsp;
+&nbsp;
 
 ```vimscript
 :let @a = "hello"
@@ -49,19 +47,18 @@
 
 
 
-&npsp;
+&nbsp;
 
 # 2 自动命令
 
-===========
 
-&npsp;
+&nbsp;
 
 ```vimscript
 autocmd BufNewFile * : write "新建文件 自动保存
 ```
 
-&npsp;
+&nbsp;
 
 BufNewFile: 监听的事件
 
@@ -69,13 +66,13 @@ BufNewFile: 监听的事件
 
 :write :执行的命令
 
-&npsp;
+&nbsp;
 
 ```vimscript
 autocmd FileType c,c++ autocmd BufWritePre * :Autoformat "保存前自动格式化
 ```
 
-&npsp;
+&nbsp;
 
 :help autocmd-events
 查看所有可以监听的事件
@@ -87,11 +84,9 @@ autocmd FileType c,c++ autocmd BufWritePre * :Autoformat "保存前自动格式�
 |3|FilterReadPre FilterReadPost|read the temp file with filter output|
 |4|FileReadPre FileReadPost|any other file read|
 
-&npsp;
+&nbsp;
 
 # 3 操作映射
-
-===========
 
 &nbsp;
 
@@ -117,7 +112,6 @@ execute "xxx"
 
 # 4 vimscript 状态栏
 
-================
 &nbsp;
 
 显示当前文件 和文件类型
@@ -138,11 +132,11 @@ set statusline=%		"
 set statusline=[%4l]	"设定行号至少显示4个字符宽度
 ```
 
-&npsp;
+&nbsp;
 
 # 5 比较
 
-&npsp;
+&nbsp;
 
 ```vimscript
 
@@ -156,7 +150,7 @@ endif
 
 # 6 函数
 
-&npsp;
+&nbsp;
 
 没有作用域限制的Vimscript函数必须以一个大写字母开头
 
@@ -176,11 +170,11 @@ call Varg("a","b")
 
 ```
 
-&npsp;
+&nbsp;
 
 # 7 字符串
 
-&npsp;
+&nbsp;
 
 ```vimscript
 echom "hello" + "world"
@@ -188,12 +182,12 @@ echom "hello" + "world"
 
 输出0
 
-&npsp;
+&nbsp;
 
 ``` vimscript
 echom "3 mice" + "2 cats"
 ```
-&npsp;
+&nbsp;
 
 输出5
 
@@ -206,5 +200,116 @@ echom "hello" . " world"
 
 # 8 字符串函数
 
-&npsp;
+&nbsp;
+
+计算字符串长度
+
+```vimscript
+
+strlen("foo")
+len("foo")
+
+```
+
+&nbsp;
+
+将字符串分割成列表
+
+```vimscript
+
+split("one two three")				"根据空格分割
+
+split("one,two,three",",")			"根据第二个参数分割
+
+```
+
+&nbsp;
+
+连接字符串
+
+```vimscript
+
+join(["foo","bar"],"...")			"用...连接列表里的所有字符串
+
+join(split("one two three"),"-")	"用-连接字符串分割后的列表里面的所有字符串
+
+```
+
+&nbsp;
+
+大小写转换
+
+```vimscript
+
+tolower("Foo")
+
+touper("foo")
+
+```
+&nbsp;
+
+
+# 9 Normal 命令
+
+&nbsp;
+
+```vimscript
+
+normal		"不能避免映射
+normal!		"能避免映射
+
+```
+
+&nbsp;
+
+normal! 不能解析"\<cr>"这种特殊字符序列
+
+使用execute创建命令会将特殊字符 转译出来
+
+```vimscript
+execute "normal! ^/exe\<cr>i"
+```
+
+# 10 集合
+
+&nbsp;
+
+## 10.1 列表
+
+&nbsp;
+
+vimscript列表是有序的，异质的元素集合。
+越过边界也是安全的
+
+```vimscript
+
+echo ['foo',3,'bar']
+
+echo ['foo',[3,'bar']]
+
+echo ['foo',[3,'bar']][0]				"foo
+echo ['foo',[3,'bar']][-2]				"foo
+
+echo ['foo',[3,'bar']][1]				"[3,'bar']
+echo ['foo',[3,'bar']][-1]				"[3,'bar']
+
+" 切割
+
+echo ['a','b','c','d','e'][0:2]			"['a','b','c']
+echo ['a','b','c','d','e'][0:1000]		"['a','b','c','d','e']
+
+
+echo ['a','b','c','d','e'][:1]			"['a','b']
+echo ['a','b','c','d','e'][3;]			"['d','e']
+
+" 字符串
+echo "abcd"[0]							"a
+echo "abcd"[-1]							"错误
+
+
+echo "abcd"[0:2]						"abc
+echo "abcd"[-2:-1]						"bc
+
+```
+
 
