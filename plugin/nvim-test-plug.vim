@@ -40,9 +40,11 @@ endfu
 fu! Ysh()
 	" echom "Helloworld 2 " . g:ysh_test_value
 	" call s:init()
+	" echo g:weather_city
 	" 清空屏幕
 	silent !clear
-	silent execute "! ~/mygit/nvim-test-plug/bin/get-weather.sh" 
+	let l:cmd="! ~/mygit/nvim-test-plug/bin/get-weather.sh " . g:weather_city
+	silent execute l:cmd
 	let g:data=readfile("/home/zzpp/mygit/nvim-test-plug/bin/weather-data")
 
 	call v:lua.test_status_notify(g:weather_city,g:data,"info")

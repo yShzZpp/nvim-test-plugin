@@ -312,4 +312,30 @@ echo "abcd"[-2:-1]						"bc
 
 ```
 
+&nbsp;
+
+列表函数
+
+```vimscript
+
+let foo=['a']
+
+call add(foo,'ab')						"在foo列表的末尾添加 'a'
+
+echo len(foo)							"输出2
+
+echo get(foo,0,'default')				"输出a
+echo get(foo,1,'default')				"输出ab
+echo get(foo,2,'default')				"输出default
+
+echo index(foo,'a')						"输出0
+echo index(foo,'ab')					"输出1
+echo index(foo,'123')					"输出-1
+
+echo join(foo)							"输出a ab 将列表变为字符串
+echo join(foo,'---')					"输出a---ab 将列表变为用'---'连接的字符串
+echo join(foo,'')						"输出aab 将列表变为用''连接的字符串
+
+```
+
 
