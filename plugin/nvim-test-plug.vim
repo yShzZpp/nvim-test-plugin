@@ -1,72 +1,22 @@
-" my nvim test plug
+" ~/.config/nvim/pack/github/start/nvim-test-plugin/plugin/nvim-test.vim
 
-"""""""""""""""""""value"""""""""""""""""""
+" 设置超时时间，默认为5秒
+let g:my_custom_timeout = 5000
 
-" 通过init.vim 设置的变量
-if !exists("g:weather_city")
-    let g:weather_city = "深圳"
-endif
+" 提示文本
+let g:my_custom_prompt = 'Hello, this is a custom prompt!'
 
-"""""""""""""""""""lua"""""""""""""""""""
-lua << EOF
+" 定义函数显示提示文本
+function! s:ShowPrompt()
+    echohl WarningMsg
+    echo g:my_custom_prompt
+    echohl None
+endfunction
 
-local test_status_record = {}
-vim.notify = require("notify")
+" 定义函数启动超时计时器
+function! s:StartTimeout()
+    let s:timer = timer_start(g:my_custom_timeout, {-> s:ShowPrompt()}, {'repeat': -1})
+endfunction
 
-function test_status_notify(city,msg, level)
-  local notify_opts = { title ="天气", timeout = 3000, hide_from_history = false, on_close = reset_status_record }
-  -- if test_status_record is not {} then add it to notify_opts to key called "replace"
-  if test_status_record ~= {} then
-    notify_opts["replace"] = test_status_record.id
-  end
-  test_status_record = vim.notify(msg, level, notify_opts)
-end
-
-function reset_status_record(window)
-  test_status_record = {}
-end
-
-EOF
-
-
-"""""""""""""""""func"""""""""""""""""
-
-" 局部函数
-fu! s:init()
-	echo "init"
-endfu
-
-" 全局函数
-fu! Ysh()
-	" echom "Helloworld 2 " . g:ysh_test_value
-	" call s:init()
-	" echo g:weather_city
-	" 清空屏幕
-	silent !clear
-	let l:cmd="! ~/mygit/nvim-test-plug/bin/get-weather.sh " . g:weather_city
-	silent execute l:cmd
-	let g:data=readfile("/home/zzpp/mygit/nvim-test-plug/bin/weather-data")
-
-	call v:lua.test_status_notify(g:weather_city,g:data,"info")
-endfu
-
-
-" while、函数参数 运用
-fu! Callback(count) dict
- let thecounter=a:count
- while thecounter>0
-     echom "call for " . self.name . " at the ". thecounter "times"
-     let thecounter -=1
- endwhile
-endfu
-let context={"name": "dictfun"}
-let Func =function('Callback', [3], context)
-
-" 电脑剪切板
-fu! UserClipboard() 
-	execute ":normal \"*p"
-endfu
-
-command! -nargs=0  Ysh call Ysh() 
-command! -nargs=0  YP call UserClipboard() 
-
+" 启动超时计时器
+call s:StartTimeout()
